@@ -34,27 +34,42 @@ function part1(lines) {
 
 /*
 **** Part 2
+*/
 
 
-function getSeeds(garden) {
-    let array = [];
+function getLowerLocation(maps, garden) {
+
+    let lowerLocation = Number.MAX_SAFE_INTEGER;
 
     for (let i = 0; i < garden.length; i += 2) {
-        let start = parseInt(garden[i]);
-        let difference = parseInt(garden[i + 1]) - 1;
+        let start = garden[i];
+        let difference = garden[i + 1];
         let end = start + difference;
 
-        for (let j = start; j <= end; j++) {
-            array.push(j);
+        for (let j = start; j < end; j++) {
+            let dest = j
+
+            maps.map((map) => {
+                let num = dest
+                map.map((n) => {
+                    if (n[1] <= dest < n[1] + n[2]) {
+                        let diff = n[0] - n[1]
+                        num = dest + diff
+                    }
+                })
+                dest = num;
+            })
+
+            lowerLocation = Math.min(dest, lowerLocation)
         }
     }
 
-    return array;
+    return lowerLocation
 }
 
 function part2(lines) {
     let input = lines.split("\r\n");
-    let seeds = getSeeds(input[0].split(": ")[1].split(" "))
+    let seeds = input[0].split(": ")[1].split(" ").map(Number)
 
     let maps = input.slice(1).reduce((acc, line) => {
         if (line === '') {
@@ -65,6 +80,8 @@ function part2(lines) {
         return acc;
     }, [[]]).filter(section => section.length > 0).map((item) => item.slice(1).map(m => m.split(" ").map(Number)));
 
+
+    /*
     let location = seeds.map((j) => {
         let dest = j
         maps.map((map) => {
@@ -78,10 +95,9 @@ function part2(lines) {
             dest = num;
         })
         return dest
-    })
+    }) */
 
-    return Math.min(...location);
+    return getLowerLocation(maps, seeds)
 }
-*/
 
-module.exports = { part1 };
+module.exports = { part1, part2 };
