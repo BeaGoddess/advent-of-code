@@ -9,8 +9,8 @@ test('Day 5 - Part 1', () => {
     //console.log(part1(input))
 });
 
-// Don't test line 16, will take 1h to run this code 😅 but gets a result!!!
+// Don't test line 15, will take 1h to run this code 😅 but gets a result!!!
 test('Day 5 - Part 2', () => {
     expect(part2(example)).toBe(46);
-    //console.log(part2(input))
+   // console.log(part2(input))
 });

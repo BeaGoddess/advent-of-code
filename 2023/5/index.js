@@ -52,14 +52,14 @@ function getLowerLocation(maps, garden) {
             maps.map((map) => {
                 let num = dest
                 map.map((n) => {
-                    if (n[1] <= dest < n[1] + n[2]) {
+                    if (n[1] <= dest && dest < n[1] + n[2]) {
                         let diff = n[0] - n[1]
                         num = dest + diff
                     }
                 })
                 dest = num;
             })
-
+            
             lowerLocation = Math.min(dest, lowerLocation)
         }
     }
@@ -79,23 +79,6 @@ function part2(lines) {
         }
         return acc;
     }, [[]]).filter(section => section.length > 0).map((item) => item.slice(1).map(m => m.split(" ").map(Number)));
-
-
-    /*
-    let location = seeds.map((j) => {
-        let dest = j
-        maps.map((map) => {
-            let num = dest
-            map.map((n) => {
-                if (n[1] <= dest && dest < n[1] + n[2]) {
-                    let diff = n[0] - n[1]
-                    num = dest + diff
-                }
-            })
-            dest = num;
-        })
-        return dest
-    }) */
 
     return getLowerLocation(maps, seeds)
 }
