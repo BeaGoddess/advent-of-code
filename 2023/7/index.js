@@ -165,6 +165,5 @@ function part2(lines) {
         return acc + (parseInt(curr[1])) * curr[2]
     }, 0)
 }
-// 248716834- NOT 248801421
 
 module.exports = { part1, part2 };
